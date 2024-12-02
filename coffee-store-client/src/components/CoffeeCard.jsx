@@ -1,35 +1,30 @@
-import { FaIdeal, FaRegEye  } from "react-icons/fa6";
-import { MdDeleteSweep } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa6";
+import { MdDeleteSweep } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const CoffeeCard = ({ coffee }) => {
-    const { name, chef,  test,  photoUrl, _id } = coffee || {}
 
-    const handleDelete = (id) =>{
-        fetch(`http://localhost:5000/coffee/${id}` , {
-            method: 'DELETE' ,
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-        })
-    }
+const CoffeeCard = ({ coffee , handleDelete}) => {
+
+
+
+    const { name, chef, test, photoUrl, _id } = coffee || {}
+
     return (
         <div className='bg-[#F5F4F1]'>
-            <div className=" h-full content-center flex justify-between shadow-xl p-5  gap-5">
+            <div className="flex content-center justify-between h-full gap-5 p-5 shadow-xl ">
                 <div>
-                    <img className='w-40 object-cover ' src={photoUrl} alt="" />
+                    <img className='object-cover w-40 ' src={photoUrl} alt="" />
                 </div>
                 <div className="">
                     <h1 className="text-2xl">Name: {name}</h1>
                     <p>Chef: {chef}</p>
                     <p>Test: {test}</p>
                 </div>
-                <div className="h-full flex flex-col justify-center items-center gap-5 mr-3">
-                    <button className="btn btn-circle bg-yellow-300  text-xl"><FaRegEye /></button>
-                    <Link to={`/update/${_id}`} className="btn btn-circle bg-black text-white  text-xl"><FaEdit /></Link>
-                    <button onClick={()=>handleDelete(_id)} className="btn btn-circle bg-red-500 text-white  text-xl"><MdDeleteSweep /></button>
+                <div className="flex flex-col items-center justify-center h-full gap-5 mr-3">
+                    <button className="text-xl bg-yellow-300 btn btn-circle"><FaRegEye /></button>
+                    <Link to={`/update/${_id}`} className="text-xl text-white bg-black btn btn-circle"><FaEdit /></Link>
+                    <button onClick={() => handleDelete(_id)} className="text-xl text-white bg-red-500 btn btn-circle"><MdDeleteSweep /></button>
                 </div>
             </div>
         </div>

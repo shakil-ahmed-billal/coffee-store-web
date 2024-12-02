@@ -1,11 +1,11 @@
 
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from './AuthProvider'
-import { useContext } from 'react'
 
 const Login = () => {
 
-    const {signInUser} = useContext(AuthContext)
+    const { signInUser } = useContext(AuthContext)
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -15,9 +15,20 @@ const Login = () => {
         console.log(email, password);
 
         signInUser(email, password)
-        .then(result => {
-            console.log(result.user);
-        }).catch(error => console.error(error))
+            .then(result => {
+                console.log(result.user);
+                const lastSignInTime = result?.user?.metadata?.lastSignInTime;
+                form.reset()
+                fetch(`https://coffee-store-server-beta-one.vercel.app/users/${email}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, lastSignInTime })
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+            }).catch(error => console.error(error))
     }
 
     return (

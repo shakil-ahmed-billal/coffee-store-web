@@ -1,14 +1,14 @@
-import React, { useContext } from 'react'
-import image from '../assets/icons/1.png'
-import { Link } from 'react-router-dom'
+import React from 'react';
 import { IoMdArrowBack } from "react-icons/io";
+import { Link } from 'react-router-dom';
+import image from '../assets/icons/1.png';
 
 const AddCoffee = () => {
-    
 
-    const handleAddCoffee = (event) =>{
+
+    const handleAddCoffee = (event) => {
         event.preventDefault()
-        
+
         const form = event.target;
         const name = form.name.value;
         const chef = form.chef.value;
@@ -17,19 +17,19 @@ const AddCoffee = () => {
         const category = form.category.value;
         const details = form.details.value;
         const photoUrl = form.photoUrl.value;
-        const coffeeDetails = {name , chef , supplier , test , category , details , photoUrl , }
+        const coffeeDetails = { name, chef, supplier, test, category, details, photoUrl, }
 
         // transfer data for mongoDB server
-        fetch('http://localhost:5000/coffee' , {
+        fetch('https://coffee-store-server-beta-one.vercel.app/coffee', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(coffeeDetails)
         }).then(res => res.json())
-        .then(data => {
-            console.log(data)
-        })
+            .then(data => {
+                console.log(data)
+            })
     }
 
     return (

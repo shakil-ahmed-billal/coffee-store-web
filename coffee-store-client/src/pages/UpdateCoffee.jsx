@@ -1,17 +1,17 @@
-import React from 'react'
-import image from '../assets/icons/1.png'
-import { Link, useLoaderData } from 'react-router-dom'
+import React from 'react';
 import { IoMdArrowBack } from "react-icons/io";
+import { Link, useLoaderData } from 'react-router-dom';
+import image from '../assets/icons/1.png';
 
 
 const UpdateCoffee = () => {
 
     const coffee = useLoaderData()
-    const { name, chef, supplier, test, category, details, photoUrl, _id} = coffee || {}
+    const { name, chef, supplier, test, category, details, photoUrl, _id } = coffee || {}
 
-    const handleUpdateCoffee = (event) =>{
+    const handleUpdateCoffee = (event) => {
         event.preventDefault()
-        
+
         const form = event.target;
         const name = form.name.value;
         const chef = form.chef.value;
@@ -20,25 +20,25 @@ const UpdateCoffee = () => {
         const category = form.category.value;
         const details = form.details.value;
         const photoUrl = form.photoUrl.value;
-        const coffeeDetails = {name , chef , supplier , test , category , details , photoUrl , }
+        const coffeeDetails = { name, chef, supplier, test, category, details, photoUrl, }
 
         console.log(coffeeDetails)
 
         // transfer data for mongoDB server
-        fetch(`http://localhost:5000/coffee/${_id}` , {
+        fetch(`https://coffee-store-server-beta-one.vercel.app/coffee/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(coffeeDetails)
         }).then(res => res.json())
-        .then(data => {
-            console.log(data)
-        })
+            .then(data => {
+                console.log(data)
+            })
     }
 
-    
-    
+
+
     return (
         <div className='w-10/12 mx-auto my-20 '>
             <div className="">

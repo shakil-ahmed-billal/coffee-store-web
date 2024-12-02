@@ -4,7 +4,7 @@ import { AuthContext } from './AuthProvider'
 
 const SignUp = () => {
 
-    const {createUser} = useContext(AuthContext)
+    const { createUser } = useContext(AuthContext)
 
     const handleSingUp = (e) => {
         e.preventDefault()
@@ -16,14 +16,22 @@ const SignUp = () => {
 
         // create user with firebase
         createUser(email, password)
-        .then(result => {
-            const user = result.user;
-            console.log(user);
-            form.reset()
-        })
-        .catch(error => console.error(error))
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                form.reset()
+                fetch('https://coffee-store-server-beta-one.vercel.app/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email })
+                }).then(res => res.json())
+                    .then(data => console.log(data))
+            })
+            .catch(error => console.error(error))
     }
-    
+
     return (
         <div className="flex items-center justify-center w-10/12 min-h-[calc(100vh-64px)] mx-auto">
             <div>

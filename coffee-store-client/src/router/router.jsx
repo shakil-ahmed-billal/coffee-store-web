@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
-import MainLayout from '../layout/MainLayout'
-import AddCoffee from '../pages/AddCoffee'
-import Products from '../pages/Products'
-import UpdateCoffee from '../pages/UpdateCoffee'
-import Auth from '../pages/Auth'
 import Login from '../authentication/Login'
 import SignUp from '../authentication/SignUp'
+import MainLayout from '../layout/MainLayout'
+import AddCoffee from '../pages/AddCoffee'
+import Auth from '../pages/Auth'
+import NewUser from '../pages/NewUser'
+import Products from '../pages/Products'
+import UpdateCoffee from '../pages/UpdateCoffee'
+import Users from '../pages/Users'
 
 const router = createBrowserRouter([
     {
@@ -15,12 +17,21 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Products></Products>,
-                loader: ()=> fetch('http://localhost:5000/coffee')
+                loader: () => fetch('https://coffee-store-server-beta-one.vercel.app/coffee')
             },
             {
                 path: '/update/:id',
                 element: <UpdateCoffee></UpdateCoffee>,
-                loader: ({params})=> fetch(`http://localhost:5000/coffee/${params.id}`)
+                loader: ({ params }) => fetch(`https://coffee-store-server-beta-one.vercel.app/coffee/${params.id}`)
+            },
+            {
+                path: '/users',
+                loader: () => fetch('https://coffee-store-server-beta-one.vercel.app/users'),
+                element: <Users></Users>,
+            },
+            {
+                path: '/user/new',
+                element: <NewUser></NewUser>
             }
         ]
     },
@@ -42,7 +53,7 @@ const router = createBrowserRouter([
             }
         ]
     }
-    
+
 ])
 
 export default router
